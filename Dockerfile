@@ -14,6 +14,7 @@ RUN apt-get update \
     tzdata \
     make \
     cmake \
+    autoconf \
     build-essential \
     bzip2 \
     git \
@@ -23,6 +24,9 @@ RUN apt-get update \
     python3-pip \
     python3-setuptools \
     python3-dev \
+    zlib1g-dev \
+    libcurl4-openssl-dev \
+    libbz2-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV TZ=America/Los_Angeles
@@ -44,9 +48,12 @@ ENV PATH=/build/minimap2-2.24_x64-linux/:$PATH
 ## Liger2LiGer
 RUN git clone https://github.com/rlorigro/Liger2LiGer.git && \
     cd Liger2LiGer && \
+    git checkout c72dab456bea2dff422783548202e57f62560c3d && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make
+
+ENV PATH=$PATH:/build/Liger2LiGer/build
 
 WORKDIR /home
